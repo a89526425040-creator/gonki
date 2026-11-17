@@ -10,12 +10,20 @@ var score_label: Label
 var rng := RandomNumberGenerator.new()
 
 func _ready() -> void:
+ _setup_input()
  rng.randomize()
  _world()
  _car()
  _camera()
  _ui()
  for i in 12: _spawn_coin()
+
+func _setup_input() -> void:
+ var bindings := {"ui_up": KEY_W, "ui_down": KEY_S, "ui_left": KEY_A, "ui_right": KEY_D}
+ for action in bindings:
+  var key := InputEventKey.new()
+  key.physical_keycode = bindings[action]
+  InputMap.action_add_event(action, key)
 
 func _world() -> void:
  var env_node := WorldEnvironment.new()
